@@ -41,25 +41,25 @@ class phpGiantBomb {
     function enableCache ($cache_dir = false, $cache_expire = 600)
     {
         $this->cache = true;
-		$this->cache_dir = realpath($cache_dir);
-		if ($dir = opendir($this->cache_dir)) {
-			while ($file = readdir($dir)) {
-				if (substr($file, -6) == '.cache' && ((filemtime($this->cache_dir . '/' . $file) + $cache_expire) < time()) ) {
-					unlink($this->cache_dir . '/' . $file);
-				}
-			}
-		}    
+        $this->cache_dir = realpath($cache_dir);
+        if ($dir = opendir($this->cache_dir)) {
+            while ($file = readdir($dir)) {
+                if (substr($file, -6) == '.cache' && ((filemtime($this->cache_dir . '/' . $file) + $cache_expire) < time()) ) {
+                    unlink($this->cache_dir . '/' . $file);
+                }
+            }
+        }    
     }
     
     function getCache ($request)
     {
         if (!$this->cache) { return false; }
         $reqhash = md5(serialize($request));
-		$file = $this->cache_dir . '/' . $reqhash . '.cache';
-		if (file_exists($file)) {
-			return json_decode(file_get_contents($file));
-		}
-		return false;
+        $file = $this->cache_dir . '/' . $reqhash . '.cache';
+        if (file_exists($file)) {
+            return json_decode(file_get_contents($file));
+        }
+        return false;
     }
     
     function setCache ($request, $response)
@@ -67,10 +67,10 @@ class phpGiantBomb {
         if (!$this->cache) { return false; }
         $reqhash = md5(serialize($request));
         $file = $this->cache_dir . "/" . $reqhash . ".cache";
-		$fstream = fopen($file, "w");
-		$result = fwrite($fstream, $response);
-		fclose($fstream);
-		return $result;
+        $fstream = fopen($file, "w");
+        $result = fwrite($fstream, $response);
+        fclose($fstream);
+        return $result;
     }
     
     function accessory ($id)
