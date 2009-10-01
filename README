@@ -1,0 +1,5 @@
+phpGiantBomb
+
+I started writing an application based on the Giant Bomb API and figured a lot of the "middle-man" stuff would be useful to others. Thus, this wrapper was born.
+
+It's basically an easy way to interface with the Giant Bomb API.
